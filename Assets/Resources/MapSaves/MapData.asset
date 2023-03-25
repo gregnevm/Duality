@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abff5a477c4e5c46a0e8b36f0487fed, type: 3}
+  m_Name: MapData
+  m_EditorClassIdentifier: 
+  _seed: 922
+  _biomes:
+  - {fileID: 11400000, guid: 093c86b947f3dd14da0cd3f4161c18a1, type: 2}
+  - {fileID: 11400000, guid: aac660c3eebfd7e448965218fe0730a2, type: 2}
+  - {fileID: 11400000, guid: ab0c5951d03c4b849a1e41de37a46367, type: 2}
+  - {fileID: 11400000, guid: a89b5752c79a3fd47b450322247d372a, type: 2}
+  - {fileID: 11400000, guid: 2110dcd2c610ec54fa17f93845873a23, type: 2}
+  _biomeColors:
+  - {r: 1, g: 0.6155666, b: 0.08176094, a: 0}
+  - {r: 0.15164685, g: 0.4811321, b: 0.012103914, a: 0}
+  - {r: 0.7343064, g: 0.8584906, b: 0.8360832, a: 0}
+  - {r: 0.028242545, g: 0.16037738, b: 0.03910167, a: 0}
+  - {r: 0.28396842, g: 0.3490566, b: 0.2788062, a: 0}
+  _anchorTiles:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
