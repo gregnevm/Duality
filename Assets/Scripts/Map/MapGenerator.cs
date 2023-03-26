@@ -8,7 +8,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] int seed = 0;
     [SerializeField] int minRangeBetweenBiomesAncors, maxRangeBetweenBiomesAnchors;
     [SerializeField, Range(0.1f, 1)] float _sizeBiomesCoefficient;
-    [SerializeField, Range(0.1f, 1)] float _smoothInfluenceCoefficient;
+    [SerializeField, Range(0.1f, 1)] float _smoothInfluenceCoefficient = 0.1f;
     [SerializeField] int _mapHeight, _mapWeight;
     [SerializeField] float _standartVisionRange;
     [SerializeField] Biome[] biomes;
@@ -58,7 +58,7 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-        
+
         // Генеруємо кожен з них
         while (tilesToGenerate.Count > 0)
         {
@@ -68,18 +68,34 @@ public class MapGenerator : MonoBehaviour
             float[] weights = CalculateWeightsFromAnchorTilesWeights(tile);
 
             // Генеруємо новий тайл
-            Tile newTile = SpawnNewTile(BiomeColors, weights, new Vector3(tile.X*10,0,tile.Y*10) );
-            
+            Tile newTile = SpawnNewTile(BiomeColors, weights, new Vector3(tile.X * 10, 0, tile.Y * 10));
+
             _tiles[tile.X, tile.Y] = newTile;
-            if ((tile.X /2) > _standartVisionRange || (tile.Y/2) > _standartVisionRange)  
+            if ((tile.X / 2) > _standartVisionRange || (tile.Y / 2) > _standartVisionRange)
             {
                 _tiles[tile.X, tile.Y].transform.gameObject.SetActive(false);
             }
             // Видаляємо тайл зі списку тайлів, які ще потрібно згенерувати
             tilesToGenerate.RemoveAt(0);
-            
+
         }
     }
+    private void CyclicMapGenerator()
+    {
+        GenerateAnchorTilesForCyclicMap();
+        GenerateTilesForCyclicMap();
+    }
+
+    private void GenerateTilesForCyclicMap()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void GenerateAnchorTilesForCyclicMap()
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void GenerateAnchorTilesOfBiomes()
     {
         float sizeBiomesCoefficient = _sizeBiomesCoefficient;
@@ -133,8 +149,8 @@ public class MapGenerator : MonoBehaviour
         for (var i = 0; i < anchorDistances.Count; i++)
         {
             var distance = anchorDistances[i];
-            var influence = (sumOfDistances - distance) / (distance/_smoothInfluenceCoefficient);
-            
+            var influence = Mathf.Pow((sumOfDistances - distance) / distance, 1f / _smoothInfluenceCoefficient);
+
 
             for (var j = 0; j < biomes.Length; j++)
             {
@@ -232,7 +248,7 @@ public class MapGenerator : MonoBehaviour
         {
             if (i!= indexOfAnchorBiome && i != weights.Length)
             {
-                weights[i] = Random.RandomRange(0, 1 - maxWeightOfMainBiome - summOfAnotherWeights);
+                weights[i] = Random.Range(0, 1 - maxWeightOfMainBiome - summOfAnotherWeights);
                 summOfAnotherWeights += weights[i];
             }
             else if (i == weights.Length)

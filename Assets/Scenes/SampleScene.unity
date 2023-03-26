@@ -540,10 +540,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 922
-  minRangeBetweenBiomesAncors: 4
-  maxRangeBetweenBiomesAnchors: 15
-  _sizeBiomesCoefficient: 0.64
-  _smoothInfluenceCoefficient: 0.1
+  minRangeBetweenBiomesAncors: 7
+  maxRangeBetweenBiomesAnchors: 57
+  _sizeBiomesCoefficient: 0.541
+  _smoothInfluenceCoefficient: 0.722
   _mapHeight: 100
   _mapWeight: 100
   _standartVisionRange: 120
@@ -599,8 +599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0909ed267b8993148913ab2e5299d56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useMapGenerator: 0
-  _saveMapToMapDataWhenGenerateNew: 1
+  _useMapGenerator: 1
+  _saveMapToMapDataWhenGenerateNew: 0
   _mapGenerator: {fileID: 1696497313}
   _mapData: {fileID: 0}
 --- !u!4 &2002700602
