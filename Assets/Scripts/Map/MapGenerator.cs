@@ -10,15 +10,20 @@ public class MapGenerator : MonoBehaviour
     [SerializeField, Range(0.1f, 1)] float _sizeBiomesCoefficient;
     [SerializeField, Range(0.1f, 1)] float _smoothInfluenceCoefficient = 0.1f;
     [SerializeField] int _mapHeight, _mapWeight;
+    [SerializeField] float _mapElementsRisedOnMap;
     [SerializeField] float _standartVisionRange;
     [SerializeField] Biome[] biomes;
     [SerializeField] Tile _tilePrefab;
     [SerializeField, Range(0,1)] float maxWeightOfMainBiome;
 
+    [SerializeField] GameObject _tilesParentInspectorGO;
+
 
     Color[] _biomeColors;
     private List<Tile> _anchorTiles;
     private Tile[,] _tiles;
+    Vector2Int _tileSize;
+    Vector3 _mapCenter;
 
     public Color[] BiomeColors { get => _biomeColors; private set => _biomeColors = value; }
 
@@ -41,6 +46,7 @@ public class MapGenerator : MonoBehaviour
     void GenerateMap()
     {
         GenerateAllMap();
+        
     }
 
     public void GenerateAllMap()
@@ -69,8 +75,9 @@ public class MapGenerator : MonoBehaviour
 
             // Генеруємо новий тайл
             Tile newTile = SpawnNewTile(BiomeColors, weights, new Vector3(tile.X * 10, 0, tile.Y * 10));
-
             _tiles[tile.X, tile.Y] = newTile;
+            newTile.name = $"Tile {tile.X} {tile.Y}";
+
             if ((tile.X / 2) > _standartVisionRange || (tile.Y / 2) > _standartVisionRange)
             {
                 _tiles[tile.X, tile.Y].transform.gameObject.SetActive(false);
@@ -79,22 +86,10 @@ public class MapGenerator : MonoBehaviour
             tilesToGenerate.RemoveAt(0);
 
         }
+        EventBus.OnNewMapCreated.Invoke(GetMapCenterAndTileSize());
+        
     }
-    private void CyclicMapGenerator()
-    {
-        GenerateAnchorTilesForCyclicMap();
-        GenerateTilesForCyclicMap();
-    }
-
-    private void GenerateTilesForCyclicMap()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void GenerateAnchorTilesForCyclicMap()
-    {
-        throw new System.NotImplementedException();
-    }
+   
 
     private void GenerateAnchorTilesOfBiomes()
     {
@@ -124,8 +119,13 @@ public class MapGenerator : MonoBehaviour
                     newTile.Y = j;
                     _tiles[newTile.X, newTile.Y] = newTile;
                     _anchorTiles.Add(newTile);
-                    Debug.Log($"Anchor Tile created at X: {newTile.X} Y: {newTile.Y}");
-                    
+                    if (_tilesParentInspectorGO != null)
+                    {
+                        newTile.transform.SetParent(_tilesParentInspectorGO.transform);
+                    }
+                    newTile.name = $"Anchor tile {newTile.X} {newTile.Y}";
+                    // Debug.Log($"Anchor Tile created at X: {newTile.X} Y: {newTile.Y}");
+
                 }
             }
         }
@@ -229,7 +229,12 @@ public class MapGenerator : MonoBehaviour
     {
         Tile tile = Instantiate(_tilePrefab, position, Quaternion.identity);        
         tile.BlendNewColorAndSetWeights(colors, weights);
-        return tile;
+        if (_tilesParentInspectorGO != null)
+        {
+            tile.transform.SetParent(_tilesParentInspectorGO.transform);
+        }
+        
+        return tile; 
     }
     private float CalculateRandomDistance()
     {
@@ -255,13 +260,27 @@ public class MapGenerator : MonoBehaviour
             {
                 weights[i] = 1 - summOfAnotherWeights;
             }
-        }
-
-        
+        }        
 
         Tile tile = Instantiate(_tilePrefab, position, Quaternion.identity);
         tile.BlendNewColorAndSetWeights(colors, weights);
+        
+       
         return tile;
+    }
+
+    public (Vector3 center, Vector2Int tileSize) GetMapCenterAndTileSize()
+    {
+        _tileSize = _tiles[0, 0].TileSize;
+        // Calculate the total width and height of the map in Unity units
+        float mapWidth = _tileSize.x * _mapWeight;
+        float mapHeight = _tileSize.y * _mapHeight;
+
+        // Calculate the center position of the map
+        _mapCenter = new Vector3(mapWidth / 2f, _mapElementsRisedOnMap, mapHeight / 2f);
+       
+        // Return the center position and size of each tile
+        return (_mapCenter, _tileSize);
     }
     public MapData SaveMapDataToScriptableObject()
     {
@@ -271,5 +290,6 @@ public class MapGenerator : MonoBehaviour
 
     }
     
+
 }
 

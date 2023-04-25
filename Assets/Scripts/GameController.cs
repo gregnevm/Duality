@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
         if (_useMapGenerator || _mapData == null)
         {
             _mapGenerator.GenerateAllMap();
+
             if (_saveMapToMapDataWhenGenerateNew)
             {
                 _mapData = _mapGenerator.SaveMapDataToScriptableObject();
@@ -43,7 +44,6 @@ public class GameController : MonoBehaviour
     }
     void SaveMap()
     {
-        AssetDatabase.CreateAsset(_mapData, $"Assets/Resources/MapSaves/" + _mapData.GetType().Name.Replace(" ", "")+".asset");
-        AssetDatabase.SaveAssets();
+       
     }
 }

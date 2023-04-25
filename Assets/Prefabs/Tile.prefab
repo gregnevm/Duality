@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 5186445494797453943}
   - component: {fileID: 5186445494797453942}
   - component: {fileID: 5186445494797453941}
-  - component: {fileID: 5186445494797453940}
   - component: {fileID: 5186445494797453939}
-  m_Layer: 0
+  - component: {fileID: 7878155017707326850}
+  m_Layer: 6
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5186445494797453943
 Transform:
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1c9e8149911ab064abe07b041842f64c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,20 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5186445494797453940
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5186445494797453938}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &5186445494797453939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +98,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5186445494797453939}
-  _tileColor: {r: 0, g: 0, b: 0, a: 0}
-  _tileMaterialPrefab: {fileID: 2100000, guid: 1c9e8149911ab064abe07b041842f64c, type: 2}
+  _color: {r: 0, g: 0, b: 0, a: 0}
+  _meshRenderer: {fileID: 5186445494797453941}
   _biomeWeights: []
+  x: 0
+  y: 0
+  _tileSize: {x: 10, y: 10}
+--- !u!65 &7878155017707326850
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5186445494797453938}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 0.8, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}

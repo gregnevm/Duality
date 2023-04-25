@@ -1,18 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public interface ISelectable 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    bool GetIsSelected();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Select();
+    void Deselect();
 }

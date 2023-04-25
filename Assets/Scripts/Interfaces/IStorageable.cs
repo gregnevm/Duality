@@ -4,8 +4,10 @@ using UnityEngine;
 
 public  interface IStorageable
 {
+    public Transform GetTransform();
     public void OpenStorage();
-    public void GetFromStorage();
-    public void SaveToStorage();
+    public bool AcceptItem(Item item);
+    public bool DropItem(Item item);
+    public bool SendMyItem(IStorageable storage);
 
 }

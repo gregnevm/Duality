@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NatureMapElements : MapElements
+public interface IPickable 
 {
-    
+    void PickUp(IStorageable storage);
 }

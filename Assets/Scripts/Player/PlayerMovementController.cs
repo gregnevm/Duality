@@ -1,11 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
 
-
-public class Tree : NatureMapElements
+public class PlayerMovementController : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
