@@ -5,43 +5,48 @@ public abstract class NatureMapElements : MapElements, IMineable
 {
     [SerializeField] private Item _earnedItem;
     [SerializeField] private int _minCountEarnedItems, _maxCountEarnedItems;
-    [SerializeField] private float _miningTime = 1f;
 
     private int _currentItemsCount;
-    private float _miningProgress;
-    private float _standardMiningDuration;
+    private bool _isMousePressed = false;
+    private bool _isMinningCompleted = false;
 
-    private void Start()
+  
+    private void Awake()
     {
         _currentItemsCount = Random.Range(_minCountEarnedItems, _maxCountEarnedItems);
-        _miningProgress = 0f;
     }
 
     private void OnMouseDown()
     {
-        Mining();
+        _isMousePressed = true;
+    }
+
+    private void OnMouseUp()
+    {
+        if (_isMousePressed)
+        {
+            _isMousePressed = false;
+            Mining();
+        }
     }
 
     public void Mining()
-    {
-        float duration = _standardMiningDuration;
-        if (_currentItemsCount > 0 && _miningProgress >= 1f)
+    {        
+        if (_currentItemsCount > 0)
         {
             _currentItemsCount--;
-            _miningProgress = 0f;
-
-            if (_currentItemsCount == 0)
-            {
-                Destroy(gameObject);
-            }
-        }
-        else if (duration > 0f)
-        {
-            _miningProgress += Time.deltaTime / duration;
+            _earnedItem.DropFromMinning(gameObject.transform);
+            Debug.Log("Success");
         }
         else
         {
-            _miningProgress += Time.deltaTime / _miningTime;
+            FinishMining();
         }
+    }
+
+    private void FinishMining()
+    {
+        Debug.Log("Mining finished");
+        _isMinningCompleted = true;
     }
 }

@@ -11,9 +11,12 @@ GameObject:
   - component: {fileID: 1729548090766549430}
   - component: {fileID: 1729548090766549424}
   - component: {fileID: 1729548090766549431}
-  - component: {fileID: 1729548090766549427}
   - component: {fileID: 1729548090766549426}
   - component: {fileID: 1729548090766549425}
+  - component: {fileID: 1534559067}
+  - component: {fileID: 1534559068}
+  - component: {fileID: 1100624677}
+  - component: {fileID: 1100624676}
   m_Layer: 5
   m_Name: Storage Slot
   m_TagString: Untagged
@@ -63,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.018274536, g: 0.7264151, b: 0.7264151, a: 1}
+  m_Color: {r: 0.47668204, g: 0.735849, b: 0.735849, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -80,23 +83,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1729548090766549427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729548090766549429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d968c4f056d141441b71303350cd6a85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _slotName: Simple
-  _acceptedTypes: []
-  _ImageGO: {fileID: 1729548090959428820}
-  _parentTransform: {fileID: 1729548090766549430}
-  _storageItem: {fileID: 0}
 --- !u!114 &1729548090766549426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +121,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 1
   m_VerticalFit: 1
+--- !u!114 &1534559067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729548090766549429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b117482712bd7c24895b8a5f6675ef0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteTypeList: []
+  blackTypeList: []
+  childStorageServices: []
+  _item: {fileID: 0}
+  itemImage: {fileID: 6835825569623339176}
+--- !u!114 &1534559068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729548090766549429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b061c36ad2c75a43aebe24515af810a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!225 &1100624677
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729548090766549429}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1100624676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729548090766549429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b061c36ad2c75a43aebe24515af810a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1729548090959428826
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +185,7 @@ GameObject:
   - component: {fileID: 1729548090959428827}
   - component: {fileID: 1729548090959428821}
   - component: {fileID: 1729548090959428820}
+  - component: {fileID: 6835825569623339176}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -195,9 +235,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -211,3 +251,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6835825569623339176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729548090959428826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7f5fa04c6367848a7e0613aa461640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1534559067}
+  cachedMyImage: {fileID: 1729548090959428820}

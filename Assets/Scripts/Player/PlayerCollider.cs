@@ -18,7 +18,7 @@ public class PlayerCollider : MonoBehaviour
         if (collidedTile != null)
         {
             _playerLocatedTile = collidedTile;
-            Debug.Log("Tile Collider");
+            
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -26,8 +26,7 @@ public class PlayerCollider : MonoBehaviour
         Tile collidedTile = other.gameObject.GetComponent<Tile>();
         if (collidedTile != null)
         {
-            _playerLocatedTile = collidedTile;
-            Debug.Log("Tile Collider");
+            _playerLocatedTile = collidedTile;            
         }
     }
     private void LocationSend()

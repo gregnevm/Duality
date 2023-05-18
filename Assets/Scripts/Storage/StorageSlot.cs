@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,11 +7,11 @@ using UnityEngine.UI;
 public class StorageSlot : MonoBehaviour, IStorageable, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     [SerializeField] private string _slotName;
-    [SerializeField] private List<Item> _acceptedTypes = new();
+    [SerializeField] private List<Item> _acceptedTypes = new List<Item>();
     [SerializeField] private Image _image;
     [SerializeField] private Transform _parentTransform;
 
-    [SerializeField] private Item _item;
+    private Item _item;
     private float _currentWeight;
     private float _currentSizeM3;
     private float _currentPieces;
@@ -29,7 +28,7 @@ public class StorageSlot : MonoBehaviour, IStorageable, IBeginDragHandler, IDrag
 
     private void Start()
     {
-        CurrentDataRefresh();       
+        CurrentDataRefresh();
     }
 
     public bool DropItem(Item item)
@@ -95,7 +94,7 @@ public class StorageSlot : MonoBehaviour, IStorageable, IBeginDragHandler, IDrag
 
     public bool ReplaceItemsBetweenSlots(StorageSlot slot)
     {
-        if (CheckSlotsItemsCanReplace(this, slot))
+        if (CheckSlotsItemsCanReplace(slot))
         {
             Item thisItem = Item;
             Item = slot.Item;
@@ -107,29 +106,8 @@ public class StorageSlot : MonoBehaviour, IStorageable, IBeginDragHandler, IDrag
     }
 
     private bool CheckItemTypeInAcceptedTypesList(Item item)
-    {// перевіряємо, чи існує список прийнятих типів
-        if (_acceptedTypes.Count > 0)
-        {
-            Type itemType = item.GetType();
-            // перебираємо всі елементи списку _acceptedTypes
-            foreach (Item white in _acceptedTypes)
-            {
-                // перевіряємо, чи є тип поточного елементу white
-                // дорівнює типу іншого елементу зі списку _acceptedTypes
-                if (white.GetType() == itemType)
-                {
-                    // якщо так, то повертаємо true
-                    return true;
-                }
-            }
-        }
-        // якщо список пустий, то повертаємо false
-        return false;
-    }
-
-    private bool CheckSlotsItemsCanReplace(StorageSlot first, StorageSlot second)
     {
-        if (first.CheckItemTypeInAcceptedTypesList(second.Item) && second.CheckItemTypeInAcceptedTypesList(first.Item))
+        if (_acceptedTypes.Count > 0 && _acceptedTypes.Contains(item))
         {
             return true;
         }
@@ -137,9 +115,13 @@ public class StorageSlot : MonoBehaviour, IStorageable, IBeginDragHandler, IDrag
         return false;
     }
 
+    private bool CheckSlotsItemsCanReplace(StorageSlot slot)
+    {
+        return CheckItemTypeInAcceptedTypesList(slot.Item) && slot.CheckItemTypeInAcceptedTypesList(Item);
+    }
+
     private void ClearSlot()
     {
-        
         _currentSizeM3 = 0;
         _currentWeight = 0;
         _currentPieces = 0;

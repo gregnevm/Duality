@@ -21,4 +21,10 @@ public class DroppedItem : MonoBehaviour, IPickable
         }
         return false;
     }
+    public bool DropFromMining(Item item, Transform spawnLocation)
+    {
+        DroppedItem miniItem = Instantiate(item.MiniItem,spawnLocation);
+        miniItem.transform.localPosition = new Vector3(Random.Range(-1f, 1f)*CacheData.TileSize.x, 0, Random.Range(-1f, 1f)*CacheData.TileSize.y);
+        return miniItem ? true : false;
+    }
 }

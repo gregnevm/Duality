@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff588f1014ddb2a49bfa5cfce262abc2, type: 3}
   m_Name: Instrument Type
   m_EditorClassIdentifier: 
-  _itemImage: {fileID: 0}
+  _itemImage: {fileID: 450634275, guid: 861a5b1acd4506949881216b6c2fbd72, type: 3}
   _pieces: 0
   _weightPerPiece: 0
   _sizePerPiece: 0

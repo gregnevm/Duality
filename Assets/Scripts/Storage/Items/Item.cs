@@ -49,6 +49,10 @@ public class Item : ScriptableObject
         }
         
     }
+    public bool DropFromMinning( Transform transform)
+    {
+        return _miniItemPrefab.DropFromMining(this, transform);        
+    }
     
 
 
@@ -77,8 +81,6 @@ public class Boots : Equipment { }
 public class BackPack : Equipment { }
 public class Weapon : Item { }
 public class Food : Item { }
-[CreateAssetMenu(fileName = "Resource", menuName = "ScriptableObjects/Items/Resources/")]
-public class Resource : Item { }
 public class Component : Item { }
 // /////////////////////////////////
 public class Blueprint : Item { }

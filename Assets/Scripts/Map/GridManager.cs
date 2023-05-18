@@ -1,14 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
-
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _gridPrefab;
+    [SerializeField] private GridDrawerService drawerService;
+    [SerializeField] private MeshFilter gridMeshFilter;
 
-    Tile _centerOfGrid;
-    Vector2Int _tileSize = new Vector2Int(10,10);
-    Vector3 _centerOfMap;
-    float _visionDistance = 100f;
+    private Tile _centerOfGrid;
+    private Vector2Int _tileSize = new Vector2Int(10, 10);
+    private Vector3 _centerOfMap;
+    private float _visionDistance = 100f;
+    private bool _isGridEnabled;
 
     private void Awake()
     {
@@ -18,68 +18,59 @@ public class GridManager : MonoBehaviour
         EventBus.OnPlayerVisionDistanceChanged.AddListener(SetVisionDistance);
     }
 
-    public void ShowGrid(Tile centralTileOfGrid)
+    public void ShowGrid()
     {
         EventBus.OnPlayerVisibleDistanceRequest.Invoke();
+        EventBus.PlayerTileLocationRequest.Invoke();
 
-        DrawGridAreoundCentertile(centralTileOfGrid);
+        DrawGridAroundCenterTile();
     }
 
     public void HideGrid()
     {
-
-       
+        gridMeshFilter.mesh = null;
     }
 
     public void DestroyGrid()
     {
-       
+        HideGrid();
+        _centerOfGrid = null;
     }
 
-    public void DrawGridAreoundCentertile(Tile centerTile)
+    public void DrawGridAroundCenterTile()
     {
-        Vector2Int tileSize = _tileSize;
-        Vector3 centerPosition = centerTile.transform.position;
-        float drawDistance = _visionDistance;
-        GameObject gridPrefab = _gridPrefab;
+        drawerService.DrawGizmosGrid(_tileSize, _centerOfMap);        
+    }
 
-        // Determine the number of grid tiles in each direction
-        int numTilesX = Mathf.CeilToInt(drawDistance / tileSize.x) * 2 + 1;
-        int numTilesZ = Mathf.CeilToInt(drawDistance / tileSize.y) * 2 + 1;
-
-        // Instantiate the grid prefab and set its parent to the center tile's transform
-        GameObject gridParent = new GameObject("Grid");
-        gridParent.transform.SetParent(centerTile.transform);
-        gridParent.transform.localPosition = Vector3.zero;
-
-        for (int x = -numTilesX / 2; x <= numTilesX / 2; x++)
+    public void GridSwitcher()
+    {
+        if (_isGridEnabled)
         {
-            for (int z = -numTilesZ / 2; z <= numTilesZ / 2; z++)
-            {
-                // Calculate the position of the current grid tile
-                Vector3 position = centerPosition + new Vector3(x * tileSize.x, 0f, z * tileSize.y);
-
-                // Instantiate a copy of the grid prefab at the calculated position
-                GameObject gridTile = Instantiate(gridPrefab, position, Quaternion.identity);
-
-                // Set the parent of the grid tile to the grid parent object
-                gridTile.transform.SetParent(gridParent.transform);
-            }
+            HideGrid();
+            _isGridEnabled = false;
+        }
+        else
+        {
+            ShowGrid();
+            _isGridEnabled = true;
         }
     }
 
-
-
-
-
-
-    void SetSizeOfTileAndMapcenter( (Vector3 centerOfMap, Vector2Int size) value)
+    private void SetSizeOfTileAndMapcenter((Vector3 centerOfMap, Vector2Int size) value)
     {
         _tileSize = value.size;
-        _centerOfMap = value.centerOfMap;        
+        _centerOfMap = value.centerOfMap;
     }
-    void SetVisionDistance(float distance)
+
+    private void SetVisionDistance(float distance)
     {
         _visionDistance = distance;
+    }
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying)
+        {
+            ShowGrid();
+        }
     }
 }
